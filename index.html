@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <!--Load the AJAX API-->
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+    ></script>
+    <script type="text/javascript">
+      google.charts.load("current", { packages: ["corechart"] });
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ["Genre", "Неиноагенты", "Иноагенты", { role: "annotation" }],
+
+          ["2020", 149566, 20, ""],
+        ]);
+
+        var view = new google.visualization.DataView(data);
+        view.setColumns([
+          0,
+          1,
+          {
+            calc: "stringify",
+            sourceColumn: 1,
+            type: "string",
+            role: "annotation",
+          },
+          2,
+        ]);
+
+        var options = {
+          width: "90%",
+          height: 400,
+          legend: { position: "top", maxLines: 3 },
+          bar: { groupWidth: "75%" },
+          isStacked: "absolute",
+          animation: {
+            startup: true,
+          },
+          explorer: {},
+          hAxis: { logScale: true, viewWindow: 0 },
+        };
+        var chart = new google.visualization.BarChart(
+          document.getElementById("barchart_values")
+        );
+        chart.draw(view, options);
+      }
+    </script>
+    <div id="barchart_values" style="width: 900px; height: 300px"></div>
+  </head>
+
+  <body>
+    <!--Div that will hold the pie chart-->
+    <div id="chart_div"></div>
+  </body>
+</html>
